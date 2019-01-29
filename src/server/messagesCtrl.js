@@ -6,19 +6,19 @@ module.exports = {
         res.status(200).send(allMessages);
     },
     createMessage: (req, res) => {
-        let newMessage = {
-            username: req.body.username,
-            message: req.body.message
+        const{username, message} = req.body;
+        const newMessage = {
+            username,
+            message
         }
         allMessages.push(newMessage);
-
+        //creates or adds to session with history log which we named history
         if (req.session.history){
             req.session.history.push(newMessage);
         } else {
             req.session.history = [];
             req.session.history.push(newMessage);
         }
-
         res.status(200).send(allMessages);
     },
     history: (req, res) => {
